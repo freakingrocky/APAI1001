@@ -1,0 +1,4 @@
+Assam: Delhi (10), Mumbai (15), Kolkata (20)
+Delhi: Assam (10), Kolkata (25), Mumbai (35)
+Mumbai: Assam (15), Delhi (35), Kolkata (30)
+Kolkata: Assam (20), Delhi (25), Mumbai (30)
