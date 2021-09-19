@@ -18,7 +18,7 @@ def main():
         print()
         for step in path[0]:
             ENV.current = step
-            if step_c != len(path[0]):
+            if step != ENV.destination:
                 print(f'STEP {step_c}: {step} -> {path[0][step_c]} a distance of {ENV.Nodes[step].get_distance(path[0][step_c])}',
                       '\n', ENV)
             else:
@@ -53,28 +53,21 @@ def graph_search(ENV):
         print(ENV)
 
         # Goal Test
-        for actions in ENV.Nodes[node.state].get_connections():
-            print("AVAILABLE:", actions)
-            # print("FRONTIER:", [x.state for x in frontier.frontier])
-            # print("AVAILABLE:", node.state, " -> ", actions, "at", node.distance)
-            if ENV.destination == actions:
-                solution = [ENV.destination]
-                depth = node.depth + 1
-                distance = node.distance + \
-                    ENV.Nodes[node.state].get_distance(ENV.destination)
-                while node.parent is not None:
-                    solution.append(node.state)
-                    node = node.parent
-                solution.append(argv[1])
+        if ENV.destination == node.state:
+            solution = [ENV.destination]
+            depth = node.depth
+            distance = node.distance
+            while node.parent is not None:
+                solution.append(node.state)
+                node = node.parent
+            solution.append(argv[1])
 
-                solution.reverse()
-                return [solution, distance, depth]
+            solution.reverse()
+            return [solution, distance, depth]
 
         if node.state not in closed:
             closed.add(node.state)
             for connection in ENV.Nodes[node.state].get_connections():
-                # print("ADDING:", node.state, connection,
-                #     ENV.Nodes[node.state].get_distance(connection))
                 frontier.add(
                     Node(connection, node, ENV.Nodes[connection].get_connections(),
                          ENV.Nodes[node.state].get_distance(connection)))
