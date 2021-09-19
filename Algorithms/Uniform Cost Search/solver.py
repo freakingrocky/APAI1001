@@ -48,9 +48,15 @@ def graph_search(ENV):
         # Getting a node and removing it from frontier
         node = frontier.remove()
 
+        print("\nCURRENT:", node.state)
+        ENV.current = node.state
+        print(ENV)
+
         # Goal Test
         for actions in ENV.Nodes[node.state].get_connections():
-            print(node.state, " -> ", actions, "and", node.distance)
+            print("AVAILABLE:", actions)
+            # print("FRONTIER:", [x.state for x in frontier.frontier])
+            # print("AVAILABLE:", node.state, " -> ", actions, "at", node.distance)
             if ENV.destination == actions:
                 solution = [ENV.destination]
                 depth = node.depth + 1
@@ -67,6 +73,8 @@ def graph_search(ENV):
         if node.state not in closed:
             closed.add(node.state)
             for connection in ENV.Nodes[node.state].get_connections():
+                # print("ADDING:", node.state, connection,
+                #     ENV.Nodes[node.state].get_distance(connection))
                 frontier.add(
                     Node(connection, node, ENV.Nodes[connection].get_connections(),
                          ENV.Nodes[node.state].get_distance(connection)))
