@@ -65,7 +65,7 @@ def graph_search(ENV):
             solution.reverse()
             return [solution, distance, depth]
 
-        if node.state not in closed:
+        if node.state not in closed and not frontier.contains_state(node.state):
             closed.add(node.state)
             for connection in ENV.Nodes[node.state].get_connections():
                 frontier.add(
