@@ -1,4 +1,5 @@
 from DS import Node
+from os import get_terminal_size
 
 class Environment:
 
@@ -15,4 +16,10 @@ class Environment:
                     data_3 = connection.split("(")
                     connections[data_3[0]] = int(data_3[1].replace(")", ""))
                 self.Nodes[data[0]] = Node(connections)
+
+    def __str__(self):
+        size = get_terminal_size()
+        return (f"{self.current}".center(size[0], " ") + '\n' +
+             "||".center(size[0], " ") + '\n' +
+               f"{self.Nodes[self.current].get_connections()}".center(size[0], " "))
 
