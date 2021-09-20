@@ -9,7 +9,7 @@ def main():
 
     ENV = Environment(argv[1], argv[2], argv[3])
 
-    path = graph_search(ENV)
+    path = ucs(ENV)
 
     if not path:
         exit("There is no possible way to this destination.")
@@ -30,7 +30,7 @@ def main():
         print(f"Depth is {path[2]}")
 
 
-def graph_search(ENV):
+def ucs(ENV):
     # Starting witha  frontier with initial state
     start = Node(ENV.current, None, None, None)
     frontier = PriorityFrontier()
@@ -48,9 +48,7 @@ def graph_search(ENV):
         # Getting a node and removing it from frontier
         node = frontier.remove()
 
-        print("\nCURRENT:", node.state)
         ENV.current = node.state
-        print(ENV)
 
         # Goal Test
         if ENV.destination == node.state:

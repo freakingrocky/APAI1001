@@ -10,7 +10,7 @@ def main():
     ENV = Environment(argv[1], argv[2], argv[3])
     limit = int(input("Enter Depth Limit: "))
 
-    path = graph_search(ENV, limit)
+    path = dls(ENV, limit)
 
     if not path:
         exit("There is no possible way to this destination.")
@@ -31,7 +31,7 @@ def main():
         print(f"Depth is {path[2]}")
 
 
-def graph_search(ENV, limit):
+def dls(ENV, limit):
     # Starting witha  frontier with initial state
     start = Node(ENV.current, None, None, None)
     frontier = LIFOFrontier()
