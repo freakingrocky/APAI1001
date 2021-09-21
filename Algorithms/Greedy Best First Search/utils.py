@@ -1,6 +1,3 @@
-from random import choice
-
-
 class Node:
     """Node Data Structure for Search."""
 
@@ -17,7 +14,6 @@ class PriorityFrontier():
         self.frontier = []
 
     def add(self, node):
-        print("CALLED:", node.state)
         self.frontier.append(node)
 
     def contains_state(self, state):
@@ -33,7 +29,7 @@ class PriorityFrontier():
             min_cost = 9999
             node = None
             for x in self.frontier:
-                if x.heuristic < min_cost and x.heuristic != 0:
+                if x.heuristic < min_cost:
                     min_cost = x.heuristic
                     node = x
                 else:

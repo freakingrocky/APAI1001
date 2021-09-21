@@ -9,6 +9,8 @@ class Game:
         shuffle(x)
         self.terminal_board = [[1, 2, 3], [4, 5, 6], [7, 8, 'X']]
         self.board = [x[0:3], x[3:6], x[6:]]
+        # TEST CASE. 58 STEPS TO SOLVE & 1188 ITERATIONS
+        # self.board = [[3, 2, 4], [7, 8, 6], ['X', 1, 5]]
 
     def exec_UP(self):
         """Execute the move up."""

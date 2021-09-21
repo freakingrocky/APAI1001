@@ -1,10 +1,12 @@
 from utils import Node, PriorityFrontier
 from game import Game
+from copy import deepcopy
 
 
 def main():
     ENV = Game()
 
+    print("SOLVING...")
     path = best_first_search(ENV)
 
     if not path:
@@ -12,11 +14,12 @@ def main():
     else:
         print()
         step_c = 0
-        for step in path[0]:
+        for step in path:
             print(f"STEP {step_c}")
             ENV.board = step
             print(ENV)
             step_c += 1
+        print(f"IT TOOK {step_c} STEPS")
 
 
 def best_first_search(ENV):
@@ -27,19 +30,20 @@ def best_first_search(ENV):
 
     # Set of all explored sets
     closed = []
+    step = 1
 
     # Keep on looping until solution is found.
     while True:
-        print("\n\n", "ITER")
-        print("FRONTIER:", *[x.state for x in frontier.frontier], sep="\n")
+        print(
+            f"STEP: {step} | FRONTIER LENGTH: {len(frontier.frontier)} | CLOSED: {len(closed)}", end='\r')
+
+        step += 1
         # If fontier is empty, return failure essentially
         if frontier.empty():
             return None
 
         # Getting a node and removing it from frontier
         node = frontier.remove()
-        ENV.board = node.state
-        print("CURRENT:", node.state)
 
         # Goal Test
         if ENV.terminal_board == node.state:
@@ -56,9 +60,8 @@ def best_first_search(ENV):
             closed.append(node.state)
             for action in available_moves(node.state):
                 child = transition_state(action, node.state)
-                frontier.add(Node(child, node,
+                frontier.add(Node(child[:], node,
                                   available_moves(child), heuristic(child)))
-                print("ADDED:", child, available_moves(child))
 
 
 
@@ -104,7 +107,7 @@ def pos(board):
 
 def transition_state(move, board):
     r, c = pos(board)
-    tmp = board
+    tmp = deepcopy(board)
     if move == "UP":
         tmp_val = board[r - 1][c]
         tmp[r][c] = tmp_val
