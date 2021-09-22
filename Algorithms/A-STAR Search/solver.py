@@ -12,7 +12,7 @@ def main():
     if not path:
         exit("There is no possible way to this destination.")
     else:
-        print()
+        print("\nSOLVED\n\n")
         step_c = 0
         for step in path:
             print(f"STEP {step_c}")

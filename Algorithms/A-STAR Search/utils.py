@@ -29,6 +29,8 @@ class PriorityFrontier():
             min_cost = 9999
             node = None
             for x in self.frontier:
+                if x.heuristic == 0:
+                    return x
                 if (x.heuristic + x.depth) < min_cost:
                     min_cost = (x.heuristic + x.depth)
                     node = x
