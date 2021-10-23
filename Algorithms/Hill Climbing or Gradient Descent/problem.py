@@ -25,3 +25,12 @@ class Problem:
             str_board += f'|\n{"="*36}\n'
         return str_board
 
+
+    def get_queen_locations(self):
+        queen = []
+        for row in range(len(self.board)):
+            for column in range(len(self.board)):
+                if self.board[row][column] == 1:
+                    queen.append([row, column])
+        return queen
+
